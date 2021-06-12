@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+     content="width=device-width, initial-scale=1, user-scalable=yes">
+     <link href="/static/css/styles.css" rel="stylesheet">
+ </head>
+
+<p>
+
+<h1>Movie Tags Predictor</h1>
+    <br><br>
+<p id="p1"> Enter the plot synopsis of movie of your choice: </p>
+
+<form action="{{ url_for('submit') }}" method="POST">
+<div id="textbox1">
+
+   <!-- <form action={{request.form['text']}}" name="text" method="get"> -->
+    <textarea id="plotinput" name="plotinput" rows="15" cols="55" draggable="false" style="resize: none;" placeholder="Enter the movie synopsis here!"></textarea>
+    <!--</form>-->
+
+<!--  <input type="text" id="fname" style="height: 300px;" name="text" size="100" draggable="false"-->
+<!--         placeholder="Enter the movie synopsis here!"-->
+<!--         value="{{request.form['text']}}"><br><br>-->
+</div>
+    <div>
+        <input type="submit" value="Submit">
+    </div>
+</form>
+<p id="p2">Click the "Submit" button to generate predicted movie tags, that give an insight of overall theme of the movie.</p>
+<br>
+        <h1>{{ tags }}</h1>
+<br>
+</body>
+</html>
