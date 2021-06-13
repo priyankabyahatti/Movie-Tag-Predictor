@@ -12,4 +12,5 @@ To run this:
     > **flask run** 
 
 
-![Movie Tags Usecase](movie-tags-ui.png)
+<img src="movie-tags-ui.png" width="700">
+
