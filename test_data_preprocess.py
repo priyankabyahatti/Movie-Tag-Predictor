@@ -27,5 +27,6 @@ def test_process_file_exist():
     assert os.path.isfile('data_with_all_tags.csv'), 'Database not created'
 
 
+
 if __name__ == '__main__':
     pytest.main()

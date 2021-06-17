@@ -1,24 +1,8 @@
-import nltk
-import warnings
-from nltk.stem import SnowballStemmer
-import pickle
 import sqlite3
-import warnings
-import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-
-# from sklearn.metrics import f1_score,precision_score,recall_score,hamming_loss from keras.layers import Conv1D,
-# Conv2D, Dense, Dropout, Flatten, LSTM, GlobalMaxPooling1D, MaxPooling2D, Activation, BatchNormalization
-from sklearn.metrics import precision_score, recall_score
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.naive_bayes import MultinomialNB
-
-
-# nltk.download('punkt')
-# nltk.download('wordnet')
-# warnings.filterwarnings("ignore")
-# stemmer = SnowballStemmer('english')
 
 
 def getprocesseddata():
@@ -43,7 +27,7 @@ def predicttags(plotsynopsis):
     y_train = train["tags"]
     X_test = test["CleanedSynopsis"]
     y_test = test["tags"]
-    cnt_vectorizer = CountVectorizer(tokenizer=tokenize, max_features=6, binary='true').fit(y_train)
+    cnt_vectorizer = CountVectorizer(tokenizer=tokenize, max_features=10, binary='true').fit(y_train)
     y_train_multilabel = cnt_vectorizer.transform(y_train)
     y_test_multilabel = cnt_vectorizer.transform(y_test)
     # print(cnt_vectorizer.vocabulary_)
@@ -92,3 +76,6 @@ def predicttags(plotsynopsis):
 # print("Predicted tag: ", cnt_vectorizer.inverse_transform(prediction1)[0])
 # print(*cnt_vectorizer.inverse_transform(prediction1)[0], sep='')
 #
+
+
+

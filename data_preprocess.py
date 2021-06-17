@@ -85,10 +85,6 @@ def data_cleaning():
     # Data Cleaning
     print("Data cleaning process started")
     data_no_dup = data_load()
-    stopwords = set(spw.words('english'))
-    sno = stem.SnowballStemmer('english')
-    lemmatizer = WordNetLemmatizer()
-
     preprocessed_synop = []
     for sentance in tqdm(data_no_dup['plot_synopsis'].values):
         sentance = re.sub(r"http\S+", "", sentance)
@@ -110,7 +106,7 @@ def data_cleaning():
 
     data_no_dup.to_csv('data_with_all_tags.csv')
     print("Cleaned data successfully and csv written to directory")
-    return stopwords, sno, lemmatizer
+    return data_no_dup
 
 
 def preprocessed_synop(text_data):
