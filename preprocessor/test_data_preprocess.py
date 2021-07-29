@@ -3,6 +3,15 @@ import os
 from data_preprocess import download_imdb_reviews_kaggle, data_load, decontracted
 
 
+api_token = {"username":"nikhilkumaritaliya","key":"0af959f0af1b5b19d6671187d38ece5c"}
+
+import json
+
+with open('/home/runner/.kaggle/kaggle.json', 'w') as file:
+    json.dump(api_token, file)
+
+# !chmod 600 ~/.kaggle/kaggle.json
+
 def test_data_download():
     data = download_imdb_reviews_kaggle()
     assert len(data) != 0, 'Data not downloaded from Kaggle'
