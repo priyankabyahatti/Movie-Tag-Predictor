@@ -1,10 +1,10 @@
 import pytest
-from model_prediction import getprocesseddata, tokenize, predicttags
+from model_prediction import tokenize, predicttags
 
 
-def test_train_test_exists():
-    train, test = getprocesseddata()
-    assert len(train) and len(test) != 0, "Train and test dfs don't exist"
+# def test_train_test_exists():
+#     train, test = getprocesseddata()
+#     assert len(train) and len(test) != 0, "Train and test dfs don't exist"
 
 
 def test_tokenize():
