@@ -1,0 +1,64 @@
+version: "3"
+services: 
+    tags_database:
+        image: "postgres"
+        env_file: 
+            - database.env
+        volumes: 
+            - "tags_data:/var/lib/postgresql/mdata/"
+        networks: 
+            - tags_net
+        expose: 
+            - "3411"
+        ports:
+            - "3411:5432"
+        command: 
+            -p 3411
+        
+
+    preprocessor:
+        build: ./preprocessor
+        command: tail -F anything
+        depends_on: 
+            - tags_database
+        networks: 
+            - tags_net
+        ports: 
+            - "3111:3111"
+        
+    prediction:
+        build: ./prediction
+        depends_on: 
+            - tags_database
+        networks: 
+            - tags_net
+        ports:
+            - "3211:3211"
+    
+    webpage:
+        build: ./webpage
+        depends_on:
+            - tags_database
+            - preprocessor
+            - prediction
+        command:
+            [
+                "./wait-for-it.sh",
+                "preprocessor:3111",
+                "-t",
+                "0",
+                "--",
+                "python",
+                "main.py",
+            ]
+        networks:
+            - tags_net
+        ports:
+            - "3311:3311"
+
+volumes: 
+    tags_data:
+
+networks: 
+    tags_net:
+        driver: bridge
