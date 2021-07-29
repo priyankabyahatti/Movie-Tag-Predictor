@@ -38,6 +38,7 @@ jobs:
           cd .kaggle
           json='{"username":"nikhilkumaritaliya","key":"0af959f0af1b5b19d6671187d38ece5c"}'
           echo $json > kaggle.json
+          ls
           pip3 install -r preprocessor/requirements.txt
           
       
