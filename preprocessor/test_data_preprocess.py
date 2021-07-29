@@ -5,10 +5,12 @@ from data_preprocess import download_imdb_reviews_kaggle, data_load, decontracte
 
 api_token = {"username":"nikhilkumaritaliya","key":"0af959f0af1b5b19d6671187d38ece5c"}
 
-import json
+os.environ['KAGGLE_USERNAME'] = 'nikhilkumaritaliya'
+os.environ['KAGGLE_KEY'] = '0af959f0af1b5b19d6671187d38ece5c'
+# import json
 
-with open('/home/runner/.kaggle/kaggle.json', 'w') as file:
-    json.dump(api_token, file)
+# with open('/home/runner/.kaggle/kaggle.json', 'w') as file:
+#     json.dump(api_token, file)
 
 # !chmod 600 ~/.kaggle/kaggle.json
 
