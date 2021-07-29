@@ -28,6 +28,7 @@ jobs:
       - name: Installing dependencies
         run: |
           cd ..
+          cd ..
           ls
           cd root
           mkdir .kaggle
