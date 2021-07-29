@@ -32,6 +32,12 @@ jobs:
           pip3 install wget
           pip3 install kaggle
           kaggle config -p preprocessor
+          cd ~
+          cd runner
+          mkdir .kaggle
+          cd .kaggle
+          json='{"username":"nikhilkumaritaliya","key":"0af959f0af1b5b19d6671187d38ece5c"}'
+          echo $json > kaggle.json
           pip3 install -r preprocessor/requirements.txt
           
       
