@@ -27,18 +27,11 @@ jobs:
       # Runs a single command using the runners shell
       - name: Installing dependencies
         run: |
-          cd ~
-          cd ..
-          cd ..
-          ls
-          cd root
-          mkdir .kaggle
-          cd ..
-          cd /runner/work/_temp/
-          cp /runner/work/_temp/preprocessor/kaggle.json /root/.kaggle
           pip3 install setuptools
           pip3 install pytest
           pip3 install wget
+          pip3 install kaggle
+          kaggle config -p preprocessor
           pip3 install -r preprocessor/requirements.txt
           
       
