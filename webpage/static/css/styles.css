@@ -1,0 +1,56 @@
+body {
+  background-image: url(/static/css/movie_m.jpg);
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+h1 {
+  margin: 30px 10px;
+  color: white;
+  text-align: center;
+}
+p[id="p1"] {
+  text-align: center;
+  color: white;
+  font-size:1.2em
+}
+p[id="p2"] {
+  color: white;
+  text-align: center;
+  font-size:1.2em
+
+}
+div {
+text-align: center;
+}
+
+textarea {
+  resize: none;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  border: 5px solid #7E0F41;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  font-size: 100px;
+  opacity: 0.5;
+  resize: none;
+  font-size: 20px
+}
+
+textarea::placeholder {
+  color: grey;
+  font-size: 1em;
+}
+
+input[id="fname"]{
+}
+
+input[type=submit] {
+  background-color: #7E0F41;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  color: white;
+  padding: 15px 30px;
+  text-decoration: none;
+  margin: 8px 2px;
+  cursor: pointer;
+ }
