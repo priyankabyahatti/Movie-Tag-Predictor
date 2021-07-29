@@ -1,6 +1,6 @@
 import pytest
 import os
-from data_preprocess import download_imdb_reviews_kaggle, data_load, decontracted
+from data_preprocess import download_imdb_reviews_kaggle, decontracted
 
 
 api_token = {"username":"nikhilkumaritaliya","key":"0af959f0af1b5b19d6671187d38ece5c"}
@@ -19,13 +19,13 @@ def test_data_download():
     assert len(data) != 0, 'Data not downloaded from Kaggle'
 
 
-def test_create_db():
-    assert os.path.isfile('mpst.db'), 'Database not created'
+# def test_create_db():
+#     assert os.path.isfile('mpst.db'), 'Database not created'
 
 
-def test_data_load():
-    data = data_load()
-    assert len(data) != 0, 'Data not loaded from database'
+# def test_data_load():
+#     data = data_load()
+#     assert len(data) != 0, 'Data not loaded from database'
 
 
 def test_decontracted():
@@ -34,8 +34,8 @@ def test_decontracted():
     assert phrase == 'I will not do it', 'decontracted function not working'
 
 
-def test_process_file_exist():
-    assert os.path.isfile('data_with_all_tags.csv'), 'Database not created'
+# def test_process_file_exist():
+#     assert os.path.isfile('data_with_all_tags.csv'), 'Database not created'
 
 
 if __name__ == '__main__':
