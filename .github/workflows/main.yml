@@ -26,12 +26,13 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Installing dependencies
+        env: 
+          KAGGLE_USERNAME: 'nikhilkumaritaliya'
+          KAGGLE_KEY: '0af959f0af1b5b19d6671187d38ece5c'
         run: |
           pip3 install setuptools
           pip3 install pytest
           pip3 install wget
-          echo '{"username":"nikhilkumaritaliya","key":"0af959f0af1b5b19d6671187d38ece5c"}' > ~/.kagglekaggle.json
-          ls
           pip3 install kaggle
           pip3 install -r preprocessor/requirements.txt
           
