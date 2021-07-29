@@ -27,8 +27,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Installing dependencies
         run: |
-          cd ..
-          cd ..
+          cd ~
           ls
           cd root
           mkdir .kaggle
