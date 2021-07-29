@@ -41,7 +41,9 @@ jobs:
         env: 
             KAGGLE_USERNAME: 'nikhilkumaritaliya'
             KAGGLE_KEY: '0af959f0af1b5b19d6671187d38ece5c'
-        run: python3 -m pytest preprocessor/test_data_preprocess.py 
+        run: |
+          python3 -m nltk.downloader popular
+          python3 -m pytest preprocessor/test_data_preprocess.py 
         
       - name: Testing Prediction
         run: python3 -m pytest prediction/test_model_prediction.py
