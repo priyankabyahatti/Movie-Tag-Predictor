@@ -29,13 +29,11 @@ jobs:
         run: |
           cd ~
           cd ..
-          ls
-          cd ..
-          ls
           cd root
           mkdir .kaggle
           cd ..
-          cp preprocessor/kaggle.json root/.kaggle
+          cd /runner/work/_temp/
+          cp /runner/work/_temp/preprocessor/kaggle.json /root/.kaggle
           pip3 install setuptools
           pip3 install pytest
           pip3 install wget
