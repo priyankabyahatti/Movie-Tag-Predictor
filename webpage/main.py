@@ -11,6 +11,12 @@ app = Flask(__name__)
 def hello_world():
     return render_template('movie-tags-page.html')
 
+# check if application is running
+@app.route("/api/check-status", methods=['GET'])
+def check_status():
+    return jsonify({"status": "success"})
+
+
 
 
 @app.route('/', methods=['POST'])

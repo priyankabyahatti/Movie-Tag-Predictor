@@ -16,6 +16,7 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 PASSWORD = 'MOVIES'
+processing = False
 
 def API(Conf):
     print('In API selction')
@@ -193,20 +194,26 @@ Machine Learning Approach for Predicting Movie Tags
 '''
 
 # function to clean data
-@app.route("/api/clean-data/<password>", methods=['GET'])
+@app.route("/api/clean-data/<password>", methods=['GET', 'POST'])
 def clean_data(password):
-    if password == PASSWORD:
-        print("Data cleaning process started")
-        main()
-        # func = request.environ.get('werkzeug.server.shutdown')
-        # if func is None:
-        #     raise RuntimeError('Not running with the Werkzeug Server')
-        # func()
-        return "Data cleaning completed successfully"
+    global processing
+    if not processing:
+        processing = True
+        try:
+            if password == PASSWORD:
+                print("Data cleaning process started")
+                main()
+                print("Data cleaning completed successfully")
+                return jsonify({"status": "success"})
+            else:
+                print("Wrong password")
+                processing = False
+                return jsonify({"status": "Invalid Password"})
+        except:
+            processing = False
+            return jsonify({"status": "Internal Error"})
     else:
-        print("Wrong password")
-        return "Invalid Password"
-
+        return {"status": "Wait for process to finish"}
 
 # function to preprocess data
 @app.route("/api/preprocess-data/<password>", methods=['GET', 'POST'])
@@ -221,6 +228,9 @@ def preprocess_data(password):
     else:
         return jsonify({"data": "Invalid Password"})
 
+@app.route("/api/check-status", methods=['GET'])
+def check_status():
+    return jsonify({"status": "success"})
 
 def main():
     if os.path.exists("data_with_all_tags.csv"):
