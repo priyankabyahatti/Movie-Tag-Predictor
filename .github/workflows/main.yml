@@ -1,0 +1,68 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  push:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+      
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@main
+
+      # Runs a single command using the runners shell
+      - name: Installing dependencies
+        env: 
+          KAGGLE_USERNAME: 'nikhilkumaritaliya'
+          KAGGLE_KEY: '0af959f0af1b5b19d6671187d38ece5c'
+        run: |
+          pip3 install setuptools
+          pip3 install pytest
+          pip3 install wget
+          pip3 install python-dotenv
+          pip3 install kaggle
+          pip3 install -r preprocessor/requirements.txt
+          
+      
+      - name: Testing Preprocessor
+        env: 
+            KAGGLE_USERNAME: 'nikhilkumaritaliya'
+            KAGGLE_KEY: '0af959f0af1b5b19d6671187d38ece5c'
+        run: |
+          python3 -m nltk.downloader popular
+          python3 -m pytest preprocessor/test_data_preprocess.py 
+        
+      - name: Testing Prediction
+        run: python3 -m pytest prediction/test_model_prediction.py
+      
+             
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: docker-compose up -d
+        
+      - name: Wait 10s
+        run: sleep 10
+        
+      - name: Currently running contaioners
+        run: docker ps
+        
+        
+      - name: History of all contaioners
+        run: docker ps -a
+
+      - name: Checking Microservices status
+        run: python3 -m pytest microservice_test.py
