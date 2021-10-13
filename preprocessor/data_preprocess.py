@@ -235,7 +235,7 @@ def main():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3111, debug=True)
+    app.run(host='0.0.0.0', port=3111, threaded=True)
     # config = {"preprocessor": "at 3111"}
     # p = multiprocessing.Process(target=API, args=(config))
     # p.start()

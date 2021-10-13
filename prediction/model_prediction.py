@@ -144,4 +144,4 @@ def predict_tags(msg):
 # print(*cnt_vectorizer.inverse_transform(prediction1)[0], sep='')
 #
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3211, debug=True)
+    app.run(host='0.0.0.0', port=3211, threaded=True)
