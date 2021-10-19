@@ -207,6 +207,11 @@ def clean_data(password):
         print("Wrong password")
         return "Invalid Password"
 
+# check if application is running
+@app.route("/api/check-status", methods=['GET', 'POST'])
+def check_status():
+    return jsonify({"status": "success"})
+
 
 # function to preprocess data
 @app.route("/api/preprocess-data/<password>", methods=['GET', 'POST'])

@@ -115,7 +115,10 @@ def predict_tags(msg):
     print(tags)
     return jsonify({"data": tags})
 
-
+# check if application is running
+@app.route("/api/check-status", methods=['GET'])
+def check_status():
+    return jsonify({"status": "success"})
 
 # prediction1 = clf.predict(X_test_multilabel)
 

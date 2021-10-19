@@ -1,10 +1,13 @@
 from flask import Flask, render_template, request, jsonify
 import flask
 from nltk.util import pr
+from flask_cors import CORS, cross_origin
 # from data_preprocess import preprocessed_synop
 import requests
 import time
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route('/')
@@ -44,4 +47,4 @@ if __name__ == "__main__":
     print("updating data")
     r = requests.get('http://preprocessor:3111/api/clean-data/MOVIES')
     print("data has been updated")
-    app.run(host='0.0.0.0', port=3311,debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=3311,debug=True, threaded=True)
