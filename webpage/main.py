@@ -35,7 +35,7 @@ def submit():
 def synopsis():
     my_data = request.data
     tags = get_synopsis(my_data)
-    return tags
+    return jsonify({"res": "success", "tags":tags})
 
 
 def get_synopsis(my_data): 
