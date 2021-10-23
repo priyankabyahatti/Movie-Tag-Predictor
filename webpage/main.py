@@ -25,6 +25,20 @@ def check_status():
 @app.route('/', methods=['POST'])
 def submit():
     my_data = request.form['plotinput']
+    tags = get_synopsis(my_data)
+    # tags = predicttags(plotdata)
+    return render_template('movie-tags-page.html', tags=tags)
+
+    # 'You entered: {}'.format(tags)
+
+@app.route('/get-synopsis', methods=['POST'])
+def synopsis():
+    my_data = request.data
+    tags = get_synopsis(my_data)
+    return tags
+
+
+def get_synopsis(my_data): 
     # run api request to get cleaned synops
     clean_res = requests.post('http://preprocessor:3111/api/preprocess-data/MOVIES', json={"data":my_data})
     plotdata = ''
@@ -37,11 +51,8 @@ def submit():
     tags = ''
     if tags_res.ok:
         tags = tags_res.json()['data']
-    # tags = predicttags(plotdata)
-    return render_template('movie-tags-page.html', tags=tags)
-
-    # 'You entered: {}'.format(tags)
-
+    
+    return tags
 
 if __name__ == "__main__":
     print("updating data")

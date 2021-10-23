@@ -37,7 +37,7 @@ def API(Conf):
 #database connection
 def database_connection():
     conn = psycopg2.connect(database="tags_database", user="admin",
-                            password="admin", host="tags_database", port="3411")
+                            password="admin", host="tags_database", port="5432")
     return conn
 
 def get_processed_data():

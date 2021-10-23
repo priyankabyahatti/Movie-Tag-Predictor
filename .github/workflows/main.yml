@@ -63,6 +63,3 @@ jobs:
         
       - name: History of all contaioners
         run: docker ps -a
-
-      - name: Checking Microservices status
-        run: python3 -m pytest microservice_test.py
