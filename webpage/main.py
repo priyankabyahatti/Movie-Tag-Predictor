@@ -6,7 +6,7 @@ from flask_cors import CORS, cross_origin
 import requests
 import time
 app = Flask(__name__)
-CORS(app, resources={r"/api/*":{"origins":"*"}})
+cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 
@@ -31,11 +31,11 @@ def submit():
     return render_template('movie-tags-page.html', tags=tags)
 
     # 'You entered: {}'.format(tags)
-@app.route('/get-synopsis', methods=['POST'])
+@app.route('/get-synopsis', methods=['POST', 'OPTIONS'])
 @cross_origin()
 def synopsis():
     my_data = request.data
-    tags = get_synopsis(my_data)
+    tags = get_synopsis(my_data.decode('utf-8'))
     return jsonify({"res": "success", "tags":tags})
 
 
@@ -58,6 +58,9 @@ def get_synopsis(my_data):
 
 if __name__ == "__main__":
     print("updating data")
-    r = requests.get('http://preprocessor:3111/api/clean-data/MOVIES')
-    print("data has been updated")
+    try:
+        r = requests.get('http://preprocessor:3111/api/clean-data/MOVIES', verify=False)
+        print("data has been updated")
+    except:
+        print("data did not update")
     app.run(host='0.0.0.0', port=3311,debug=True, threaded=True)

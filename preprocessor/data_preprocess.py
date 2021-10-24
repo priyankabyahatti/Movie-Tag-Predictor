@@ -215,6 +215,7 @@ def check_status():
 
 # function to preprocess data
 @app.route("/api/preprocess-data/<password>", methods=['GET', 'POST'])
+@cross_origin()
 def preprocess_data(password):
     if password == PASSWORD:
         content = request.json
