@@ -11,6 +11,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from flask_cors import CORS, cross_origin
 from flask import Flask, request, jsonify
 import psycopg2
+import test_model_prediction
 
 
 
@@ -147,4 +148,10 @@ def check_status():
 # print(*cnt_vectorizer.inverse_transform(prediction1)[0], sep='')
 #
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3211, threaded=True)
+    print("======================  RUNNING UNIT TESTS (Predictor) ====================== ")
+    if test_model_prediction.unit_test():
+        print("======================  UNIT TESTS PASSED (Predictor) ====================== ")
+        print("Starting Predictor Microservice")
+        app.run(host='0.0.0.0', port=3211, threaded=True)
+    else:
+        print("======================  UNIT TESTS FAILED (Predictor) ====================== ")

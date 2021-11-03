@@ -37,3 +37,4 @@ urllib3==1.26.5
 Werkzeug==2.0.1
 flask-cors
 psycopg2-binary
+pytest

@@ -1,5 +1,5 @@
 import pytest
-from model_prediction import tokenize, predicttags
+from model_prediction import tokenize, predicttags, database_connection
 
 
 # def test_train_test_exists():
@@ -11,7 +11,8 @@ def test_tokenize():
     test_tags = "suspensful ,flashback, thriller"
     tags = str(test_tags)
     test_tags = str(tokenize(tags))
-    assert test_tags.isspace() is not True, "tokenize function defective"
+    return test_tags.isspace() is not True
+    # assert test_tags.isspace() is not True, "tokenize function defective"
 
 
 # def test_tags_output():
@@ -19,6 +20,24 @@ def test_tokenize():
 #     plot = str(plot)
 #     tags = predicttags(plot)
 #     assert tags is not None, 'Tags not predicted'
+
+# Test if db connection is successfully established or not
+def test_db_connection():
+    try:
+        conn = database_connection()
+        return conn.closed == 0
+    except:
+        return False
+
+def unit_test():
+    tests = {}
+    tests["Tokenization Test:"] = test_tokenize()
+    tests["Database Connection:"] = test_db_connection()
+    print("Found", len(tests), "tests..." )
+    for test, result in tests.items():
+        print(test, "PASSED" if result else "FAILED")
+    print(sum(tests.values()), "out of", len(tests.values()), "tests passed." )
+    return all(tests.values())
 
 
 if __name__ == '__main__':

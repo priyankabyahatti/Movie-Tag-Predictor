@@ -11,6 +11,7 @@ from tqdm import tqdm
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 import psycopg2
+import test_data_preprocess
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -241,7 +242,15 @@ def main():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3111, threaded=True)
+    print("======================  RUNNING UNIT TESTS (Preprocessor) ====================== ")
+    if test_data_preprocess.unit_test():
+        print("======================  UNIT TESTS PASSED (Preprocessor) ====================== ")
+        print("Starting Preprocessor Microservice")
+        app.run(host='0.0.0.0', port=3111, threaded=True)
+    else:
+        print("======================  UNIT TESTS FAILED (Preprocessor) ====================== ")
+
+
     # config = {"preprocessor": "at 3111"}
     # p = multiprocessing.Process(target=API, args=(config))
     # p.start()
