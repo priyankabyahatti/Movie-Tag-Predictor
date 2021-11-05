@@ -6,6 +6,7 @@ from flask_cors import CORS, cross_origin
 import requests
 import psycopg2
 import time
+import multiprocessing
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -87,6 +88,9 @@ def integration_failed():
 def integration_passed():
     print("Integration Test Passed.\n ---------------------------- INTEGRATION TESTING ENDED -------------------------- \nStarting the Service.")
 
+def open_port(config):
+    # open port
+    app.run(host='0.0.0.0', port=3311,debug=True, threaded=True)
 
 
 if __name__ == "__main__":
@@ -104,8 +108,9 @@ if __name__ == "__main__":
         has_failed = True
         integration_failed()
     else:
-            # load the data
+        # load the data
         is_table = 0
+        data_found = False
         try:
             print("Checking data in database")
             conn = database_connection()
@@ -120,10 +125,12 @@ if __name__ == "__main__":
             try:
                 r = requests.get('http://preprocessor:3111/api/clean-data/MOVIES', verify=False)
                 print("Data loaded successfully")
+                data_found = False
             except:
                 integration_failed()
                 has_failed = True
-
+        else:
+            data_found = True
     # run a api call with dummy data
     if not has_failed:
         with open("test_synopsis.txt", "r") as f:
@@ -136,9 +143,17 @@ if __name__ == "__main__":
             else:
                 integration_passed()
                 has_failed = False
-
-                # open port
-                app.run(host='0.0.0.0', port=3311,debug=True, threaded=True)
+           
+                config = {"preprocessor": "at 3111"}
+                p = multiprocessing.Process(target=open_port, args=(config))
+                p.start()
+                if data_found:
+                    print("Data available... \nUpdating the data")
+                    r = requests.get('http://preprocessor:3111/api/clean-data/MOVIES', verify=False)
+                    print("Data updated successfully")
+                    p.join()
+                else:
+                    p.join()
         except:
             integration_failed()
             has_failed = True
