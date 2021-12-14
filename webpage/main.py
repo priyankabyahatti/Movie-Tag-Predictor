@@ -43,10 +43,9 @@ def submit():
 @app.route('/get-synopsis', methods=['POST', 'OPTIONS'])
 @cross_origin()
 def synopsis():
-    my_data = request.data
-    tags = get_synopsis(my_data.decode('utf-8'))
+    my_data = request.json["data"]
+    tags = get_synopsis(my_data)
     return jsonify({"res": "success", "tags":tags})
-
 
 def get_synopsis(my_data):
     # run api request to get cleaned synops
@@ -56,7 +55,7 @@ def get_synopsis(my_data):
     if clean_res.ok:
         plotdata = clean_res.json()['data']
     # plotdata = ''.join(str(cleaned_synopsis))
-
+    
     # run api request to get predicted tags
     tags_res = requests.post('http://prediction:3211/api/predict-tags/tags', json={"data":plotdata})
     tags = ''
@@ -151,13 +150,7 @@ if __name__ == "__main__":
                     print("Data available... \nUpdating the data")
                     r = requests.get('http://preprocessor:3111/api/clean-data/MOVIES', verify=False)
                     print("Data updated successfully")
-                    p.join()
-                else:
-                    p.join()
+                p.join()
         except:
             integration_failed()
             has_failed = True
-
-        
-
-
